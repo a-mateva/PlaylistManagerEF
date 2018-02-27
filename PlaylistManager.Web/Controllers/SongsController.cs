@@ -37,5 +37,59 @@ namespace PlaylistManager.Web.Controllers
                 return View(item);
             }
         }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            BaseRepository<Song> repo = new BaseRepository<Song>();
+            Song item = repo.GetById(id);
+            if (item != null)
+            {
+                return View(item);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Delete(Song item)
+        {
+            BaseRepository<Song> repo = new BaseRepository<Song>();
+            repo.Delete(item);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Update(int id)
+        {
+            BaseRepository<Song> repo = new BaseRepository<Song>();
+            Song item = repo.GetById(id);
+            if (item != null)
+            {
+                return View(item);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Update(Song item)
+        {
+            BaseRepository<Song> repo = new BaseRepository<Song>();
+
+            if (ModelState.IsValid)
+            {
+                repo.Update(item);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(item);
+            }
+        }
     }
 }
