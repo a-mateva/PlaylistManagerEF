@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{698D73FE-DD1B-4D89-BD3D-C7E4F1A6A47D}</ProjectGuid>
+    <ProjectGuid>{D1C528D1-E62E-4FED-908B-14D5B50E1887}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PlaylistManager.DataAccess</RootNamespace>
-    <AssemblyName>PlaylistManager.DataAccess</AssemblyName>
+    <RootNamespace>PlaylistManager.Services</RootNamespace>
+    <AssemblyName>PlaylistManager.Services</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,15 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,19 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseRepository.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="PlaylistManagerDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitOfWork.cs" />
+    <Compile Include="UsersService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\PlaylistManager.DataAccess\PlaylistManager.DataAccess.csproj">
+      <Project>{698d73fe-dd1b-4d89-bd3d-c7e4f1a6a47d}</Project>
+      <Name>PlaylistManager.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PlaylistManager.Models\PlaylistManager.Models.csproj">
-      <Project>{121a8e74-05b3-453d-b287-ee792a863bda}</Project>
+      <Project>{121A8E74-05B3-453D-B287-EE792A863BDA}</Project>
       <Name>PlaylistManager.Models</Name>
     </ProjectReference>
   </ItemGroup>

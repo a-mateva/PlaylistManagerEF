@@ -13,13 +13,7 @@ namespace PlaylistManager.DataAccess
     {
         private DbContext context;
         private DbSet<T> dbSet;
-
-        public BaseRepository()
-        {
-            context = new PlaylistManagerDbContext();
-            dbSet = context.Set<T>();
-        }
-
+        
         public BaseRepository(DbContext context)
         {
             this.context = context;
@@ -31,7 +25,7 @@ namespace PlaylistManager.DataAccess
             return dbSet.ToList();
         }
 
-        public List<T> GetAll(Expression<Func<T, bool>> filter)
+        public List<T> Get(Expression<Func<T, bool>> filter)
         {
             return dbSet.Where(filter).ToList();
         }

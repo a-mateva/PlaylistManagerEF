@@ -1,5 +1,6 @@
 ﻿using PlaylistManager.DataAccess;
 using PlaylistManager.Models;
+using PlaylistManager.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,16 @@ namespace PlaylistManager.Web.Controllers
 {
     public class UsersController : Controller
     {
+        private UsersService service;
+
+        public UsersController()
+        {
+            service = new UsersService(new UnitOfWork());
+        }
         // GET: Users
         public ActionResult Index()
         {
-            BaseRepository<User> repo = new BaseRepository<User>();
-            List<User> users = repo.GetAll();
+            List<User> users = service.GetAll();
             return View(users);
         }
 
@@ -26,10 +32,9 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Create(User user)
         {
-            BaseRepository<User> repo = new BaseRepository<User>();
             if (ModelState.IsValid)
             {
-                repo.Add(user);
+                service.Create(user);
                 return RedirectToAction("Index");
             }
             else
@@ -40,8 +45,7 @@ namespace PlaylistManager.Web.Controllers
 
         public ActionResult Update(int id)
         {
-            BaseRepository<User> repo = new BaseRepository<User>();
-            User user = repo.GetById(id);
+            User user = service.GetById(id);
             if (user != null)
             {
                 return View(user);
@@ -55,10 +59,9 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Update(User user)
         {
-            BaseRepository<User> repo = new BaseRepository<User>();
             if (ModelState.IsValid)
             {
-                repo.Update(user);
+                service.Update(user);
                 return RedirectToAction("Index");
             }
             else
@@ -69,8 +72,7 @@ namespace PlaylistManager.Web.Controllers
 
         public ActionResult Delete(int id)
         {
-            BaseRepository<User> repo = new BaseRepository<User>();
-            User user = repo.GetById(id);
+            User user = service.GetById(id);
             if (user != null)
             {
                 return View(user);
@@ -84,8 +86,7 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Delete(User user)
         {
-            BaseRepository<User> repo = new BaseRepository<Models.User>();
-            repo.Delete(user);
+            service.Delete(user);
             return RedirectToAction("Index");
         }
     }

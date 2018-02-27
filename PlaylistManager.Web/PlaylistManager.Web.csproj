@@ -159,6 +159,10 @@
       <Project>{121a8e74-05b3-453d-b287-ee792a863bda}</Project>
       <Name>PlaylistManager.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PlaylistManager.Services\PlaylistManager.Services.csproj">
+      <Project>{d1c528d1-e62e-4fed-908b-14d5b50e1887}</Project>
+      <Name>PlaylistManager.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

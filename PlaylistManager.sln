@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaylistManager.Models", "P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaylistManager.DataAccess", "PlaylistManager.DataAccess\PlaylistManager.DataAccess.csproj", "{698D73FE-DD1B-4D89-BD3D-C7E4F1A6A47D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaylistManager.Services", "PlaylistManager.Services\PlaylistManager.Services.csproj", "{D1C528D1-E62E-4FED-908B-14D5B50E1887}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{698D73FE-DD1B-4D89-BD3D-C7E4F1A6A47D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{698D73FE-DD1B-4D89-BD3D-C7E4F1A6A47D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{698D73FE-DD1B-4D89-BD3D-C7E4F1A6A47D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1C528D1-E62E-4FED-908B-14D5B50E1887}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1C528D1-E62E-4FED-908B-14D5B50E1887}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1C528D1-E62E-4FED-908B-14D5B50E1887}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1C528D1-E62E-4FED-908B-14D5B50E1887}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
