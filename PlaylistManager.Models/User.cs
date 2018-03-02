@@ -11,7 +11,7 @@ namespace PlaylistManager.Models
     {
         [Required]
         public string Username { get; set; }
-        [StringLength(20, MinimumLength = 7, ErrorMessage = "Length error")]
+        [StringLength(20, MinimumLength = 7, ErrorMessage = "Password is too short.")]
         public string Password { get; set; }
         [Required]
         public string Name { get; set; }
