@@ -17,7 +17,7 @@ namespace PlaylistManager.Web.Controllers
         {
             service = new UsersService(new UnitOfWork());
         }
-        // GET: Users
+
         public ActionResult Index()
         {
             List<User> users = service.GetAll();
@@ -88,6 +88,11 @@ namespace PlaylistManager.Web.Controllers
         {
             service.Delete(user);
             return RedirectToAction("Index");
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
         }
     }
 }

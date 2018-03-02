@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,11 @@ namespace PlaylistManager.Models
 {
     public class User : BaseModel
     {
+        [Required]
         public string Username { get; set; }
+        [StringLength(20, MinimumLength = 7, ErrorMessage = "Length error")]
         public string Password { get; set; }
+        [Required]
         public string Name { get; set; }
         public bool IsAdmin { get; set; }
 

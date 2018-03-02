@@ -1,5 +1,6 @@
 ﻿using PlaylistManager.DataAccess;
 using PlaylistManager.Models;
+using PlaylistManager.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,16 @@ namespace PlaylistManager.Web.Controllers
 {
     public class SongsController : Controller
     {
-        // GET: Songs
+        private SongsService service;
+
+        public SongsController()
+        {
+            service = new SongsService(new UnitOfWork());
+        }
+
         public ActionResult Index()
         {
-            BaseRepository<Song> repo = new BaseRepository<Song>();
-            List<Song> songs = repo.GetAll();
+            List<Song> songs = service.GetAll();
             return View(songs);
         }
 
@@ -26,10 +32,8 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Create(Song item)
         {
-            BaseRepository<Song> repo = new BaseRepository<Song>();
-            if (ModelState.IsValid)
+            if (service.Create(item))
             {
-                repo.Add(item);
                 return RedirectToAction("Index");
             }
             else
@@ -41,8 +45,7 @@ namespace PlaylistManager.Web.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            BaseRepository<Song> repo = new BaseRepository<Song>();
-            Song item = repo.GetById(id);
+            Song item = service.GetById(id);
             if (item != null)
             {
                 return View(item);
@@ -56,16 +59,14 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Delete(Song item)
         {
-            BaseRepository<Song> repo = new BaseRepository<Song>();
-            repo.Delete(item);
+            service.Delete(item);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public ActionResult Update(int id)
         {
-            BaseRepository<Song> repo = new BaseRepository<Song>();
-            Song item = repo.GetById(id);
+            Song item = service.GetById(id);
             if (item != null)
             {
                 return View(item);
@@ -79,17 +80,20 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Update(Song item)
         {
-            BaseRepository<Song> repo = new BaseRepository<Song>();
-
             if (ModelState.IsValid)
             {
-                repo.Update(item);
+                service.Update(item);
                 return RedirectToAction("Index");
             }
             else
             {
                 return View(item);
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
         }
     }
 }

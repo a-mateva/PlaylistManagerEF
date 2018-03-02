@@ -12,8 +12,7 @@ namespace PlaylistManager.Services
     public class UsersService
     {
         private UnitOfWork unitOfWork;
-        private ModelStateDictionary modelState;
-
+        
         public UsersService(UnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
@@ -24,37 +23,13 @@ namespace PlaylistManager.Services
             User LoggedUser = unitOfWork.UserRepository.Get(u => u.Username == username && u.Password == password).FirstOrDefault();
             return LoggedUser;
         }
-
-        public bool Validate(User user)
-        {
-            if (user.Name.Trim().Length == 0)
-            {
-                modelState.AddModelError("Name", "Name is required");
-            }
-            if (user.Username.Trim().Length == 0)
-            {
-                modelState.AddModelError("Username", "Username is required");
-            }
-            if (user.Password.Trim().Length == 0)
-            {
-                modelState.AddModelError("Password", "You must choose a password longer than 7 characters.");
-            }
-            if (user.Password.Trim().Length < 7)
-            {
-                modelState.AddModelError("Password", "Password is too short.");
-            }
-            return modelState.IsValid;
-        }
-
+                
         public bool Create(User user)
-        {
-            if (!Validate(user))
-            {
-                return false;
-            }
+        {            
             try
             {
                 unitOfWork.UserRepository.Add(user);
+                unitOfWork.Save();
             }
             catch (Exception)
             {
@@ -64,11 +39,7 @@ namespace PlaylistManager.Services
         }
 
         public bool Update(User user)
-        {
-            if (!Validate(user))
-            {
-                return false;
-            }
+        {           
             try
             {
                 unitOfWork.UserRepository.Update(user);
@@ -84,6 +55,7 @@ namespace PlaylistManager.Services
         public void Delete(User user)
         {
             unitOfWork.UserRepository.Delete(user);
+            unitOfWork.Save();
         }
 
         public User GetById(int id)
