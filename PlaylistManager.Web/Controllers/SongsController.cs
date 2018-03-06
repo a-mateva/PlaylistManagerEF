@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace PlaylistManager.Web.Controllers
 {
+    [Authorize]
     public class SongsController : Controller
     {
         private SongsService service;

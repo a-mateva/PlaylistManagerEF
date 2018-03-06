@@ -3,6 +3,7 @@ using PlaylistManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,11 +52,11 @@ namespace PlaylistManager.Services
             unitOfWork.Save();
         }
 
-        public List<Playlist> GetAll()
+        public List<Playlist> GetAll(Expression<Func<Playlist, bool>> filter)
         {
-            return unitOfWork.PlaylistsRepository.GetAll();
+            return unitOfWork.PlaylistsRepository.Get(filter);
         }
-
+        
         public Playlist GetById(int id)
         {
             return unitOfWork.PlaylistsRepository.GetById(id);
