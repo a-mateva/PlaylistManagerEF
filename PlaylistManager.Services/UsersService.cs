@@ -12,6 +12,7 @@ namespace PlaylistManager.Services
     public class UsersService
     {
         private UnitOfWork unitOfWork;
+        public static User LoggedUser { get; set; }
         
         public UsersService(UnitOfWork unitOfWork)
         {
@@ -20,7 +21,7 @@ namespace PlaylistManager.Services
 
         public User GetByEmailAndPassword(string username, string password)
         {
-            User LoggedUser = unitOfWork.UserRepository.Get(u => u.Username == username && u.Password == password).FirstOrDefault();
+            LoggedUser = unitOfWork.UserRepository.Get(u => u.Username == username && u.Password == password).FirstOrDefault();
             return LoggedUser;
         }
                 
