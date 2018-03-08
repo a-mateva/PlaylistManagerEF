@@ -144,10 +144,9 @@
     <Content Include="Views\Users\Update.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\LoggedIn.cshtml" />
-    <Content Include="Views\Playlists\Create.cshtml" />
     <Content Include="Views\Playlists\Delete.cshtml" />
     <Content Include="Views\Playlists\Edit.cshtml" />
+    <Content Include="Views\Playlists\Create.cshtml" />
     <Content Include="Views\Playlists\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

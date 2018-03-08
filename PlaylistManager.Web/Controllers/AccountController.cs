@@ -55,9 +55,8 @@ namespace PlaylistManager.Web.Controllers
                 UsersService.LoggedUser = service.GetByEmailAndPassword(user.Username, user.Password);
                 if (UsersService.LoggedUser != null)
                 {
-                    Session["Id"] = UsersService.LoggedUser.Id.ToString();
-                    Session["Username"] = UsersService.LoggedUser.Username.ToString();
-                    return RedirectToAction("LoggedIn");
+                    Session["LoggedUser"] = UsersService.LoggedUser;
+                    return RedirectToAction("Index", "Playlists");
                 }
                 if (UsersService.LoggedUser.IsAdmin)
                 {
@@ -73,15 +72,6 @@ namespace PlaylistManager.Web.Controllers
                 ModelState.AddModelError("", "Invalid email or password.");
             }
             return View();
-        }
-        
-        public ActionResult LoggedIn()
-        {
-            if (Session["Id"] != null)
-            {
-                return View();
-            }
-            return RedirectToAction("Login");
-        }
+        }        
     }
 }

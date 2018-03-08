@@ -10,7 +10,6 @@ using PlaylistManager.Web.ViewModels;
 
 namespace PlaylistManager.Web.Controllers
 {
-    [Authorize]
     public class PlaylistsController : Controller
     {
         private PlaylistsService pService;
@@ -19,91 +18,131 @@ namespace PlaylistManager.Web.Controllers
 
         public PlaylistsController()
         {
+            unitOfWork = new UnitOfWork();
             pService = new PlaylistsService(unitOfWork);
             sService = new SongsService(unitOfWork);
         }
-        
+
+        private bool IsAuthenticated()
+        {
+            if (Session["LoggedUser"] == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         [HttpGet]
         public ActionResult Create()
         {
-            List<Song> allSongs = sService.GetAll();
-            PlaylistViewModel model = new PlaylistViewModel();
-            model.SelectedSongs = new List<SelectListItem>();
-
-            foreach (var item in allSongs)
+            if (!IsAuthenticated())
             {
-                model.SelectedSongs.Add(new SelectListItem
-                {
-                    Text = item.Title,
-                    Value = item.Id.ToString(),
-                    Selected = false
-                });
+                return RedirectToAction("Login", "Account");
             }
-            return View(model);
+            else
+            {
+                List<Song> allSongs = sService.GetAll();
+                PlaylistViewModel model = new PlaylistViewModel();
+                model.SelectedSongs = new List<SelectListItem>();
+                model.UserId = UsersService.LoggedUser.Id;
+
+                foreach (var item in allSongs)
+                {
+                    model.SelectedSongs.Add(new SelectListItem
+                    {
+                        Text = item.Title,
+                        Value = item.Id.ToString(),
+                        Selected = false
+                    });
+                }
+                return View(model);
+            }
         }
 
         [HttpPost]
         public ActionResult Create(PlaylistViewModel model, string[] selectedSongs)
         {
-            Playlist playlist = new Playlist();
-            playlist.Name = model.Name;
-            playlist.Songs = GetSelectedSongs(selectedSongs);
-            if (ModelState.IsValid)
+            if (!IsAuthenticated())
             {
-                pService.Create(playlist);
-                return RedirectToAction("Index");
+                return RedirectToAction("Login", "Account");
             }
             else
             {
-                return RedirectToAction("Create");
+                Playlist playlist = new Playlist();
+
+                playlist.Name = model.Name;
+                playlist.Description = model.Description;
+                playlist.UserId = UsersService.LoggedUser.Id;
+
+                pService.Create(playlist);
+
+                return RedirectToAction("Index");
             }
-        }        
+        }
 
         public ActionResult Index()
         {
-            List<Playlist> playlists = pService.GetAll(list => list.UserId == UsersService.LoggedUser.Id);
-            return View(playlists);
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                List<Playlist> playlists = pService.GetAll(list => list.UserId == UsersService.LoggedUser.Id);
+                return View(playlists);
+            }
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            PlaylistViewModel model = new PlaylistViewModel();
-            Playlist playlist = pService.GetById(id);
-
-            model.Name = playlist.Name;
-            model.Description = playlist.Description;
-            model.UserId = playlist.UserId;
-
-            List<Song> allSongs = sService.GetAll();
-
-            model.SelectedSongs = new List<SelectListItem>();
-
-            int count = -1;
-            foreach (var item in allSongs)
+            if (!IsAuthenticated())
             {
-                count++;
-                model.SelectedSongs.Add(new SelectListItem
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                Playlist playlist = pService.GetById(id);
+
+                PlaylistViewModel model = new PlaylistViewModel();
+                model.Name = playlist.Name;
+                model.Description = playlist.Description;
+                model.UserId = playlist.UserId;
+
+                List<Song> allSongs = sService.GetAll();
+
+                model.SelectedSongs = new List<SelectListItem>();
+
+                int count = -1;
+                foreach (var item in allSongs)
                 {
-                    Text = item.Title,
-                    Value = item.Id.ToString(),
-                    Selected = false
-                });
-                foreach (var song in playlist.Songs)
-                {
-                    if (song.Id == item.Id)
+                    count++;
+                    model.SelectedSongs.Add(new SelectListItem
                     {
-                        model.SelectedSongs[count].Selected = true;
-                        break;
+                        Text = item.Title,
+                        Value = item.Id.ToString(),
+                        Selected = false
+                    });
+                    foreach (var song in playlist.Songs)
+                    {
+                        if (song.Id == item.Id)
+                        {
+                            model.SelectedSongs[count].Selected = true;
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (playlist == null)
-            {
-                return HttpNotFound();
+                if (playlist == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(model);
             }
-            return View(model);
         }
 
         private List<Song> GetSelectedSongs(string[] selectedSongs)
@@ -119,40 +158,63 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Edit(Playlist playlistToEdit, string[] selectedSongs)
         {
-            PlaylistViewModel model = new PlaylistViewModel();
-            Playlist playlist = playlistToEdit;
-            playlist.Songs.Clear();
-
-            try
+            if (!IsAuthenticated())
             {
-                playlist.Songs = GetSelectedSongs(selectedSongs);
-            }
-            catch (Exception)
-            {
-                return RedirectToAction("Edit");
-            }
-            pService.Update(playlist);
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult Delete(int id)
-        {
-            Playlist playlist = pService.GetById(id);
-            if (playlist == null)
-            {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Account");
             }
             else
             {
-                return View(playlist);
+                PlaylistViewModel model = new PlaylistViewModel();
+                Playlist playlist = pService.GetById(playlistToEdit.Id);
+                playlist.Songs.Clear();
+
+                try
+                {
+                    playlist.Songs = GetSelectedSongs(selectedSongs);
+                }
+
+                catch (Exception)
+                {
+                    return RedirectToAction("Edit");
+                }
+
+                pService.Update(playlist);
+                return RedirectToAction("Index");
+            }
+        }
+        
+        public ActionResult Delete(int id)
+        {
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                Playlist playlist = pService.GetById(id);
+                if (playlist == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    return View(playlist);
+                }
             }
         }
 
         [HttpPost]
         public ActionResult Delete(Playlist playlist)
         {
-            pService.Delete(playlist);
-            return RedirectToAction("Index");
+            if (!IsAuthenticated())
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            else
+            {
+                pService.Delete(playlist);
+                return RedirectToAction("Index");
+            }
         }
     }
 }
