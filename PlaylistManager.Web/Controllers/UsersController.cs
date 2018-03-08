@@ -9,7 +9,6 @@ using System.Web.Mvc;
 
 namespace PlaylistManager.Web.Controllers
 {
-    [Authorize]
     public class UsersController : Controller
     {
         private UsersService service;
@@ -19,20 +18,44 @@ namespace PlaylistManager.Web.Controllers
             service = new UsersService(new UnitOfWork());
         }
 
+        private bool IsAuthorized()
+        {
+            if (Session["LoggedUser"] == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public ActionResult Index()
         {
+            if (IsAuthorized())
+            {
+                return RedirectToAction("Login", "Account");
+            }
             List<User> users = service.GetAll();
             return View(users);
         }
 
         public ActionResult Create()
         {
+            if (IsAuthorized())
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(User user)
         {
+            if (IsAuthorized())
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 service.Create(user);
@@ -46,6 +69,10 @@ namespace PlaylistManager.Web.Controllers
 
         public ActionResult Update(int id)
         {
+            if (IsAuthorized())
+            {
+                return RedirectToAction("Login", "Account");
+            }
             User user = service.GetById(id);
             if (user != null)
             {
@@ -60,6 +87,10 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Update(User user)
         {
+            if (IsAuthorized())
+            {
+                return RedirectToAction("Login", "Account");
+            }
             if (ModelState.IsValid)
             {
                 service.Update(user);
@@ -73,6 +104,10 @@ namespace PlaylistManager.Web.Controllers
 
         public ActionResult Delete(int id)
         {
+            if (IsAuthorized())
+            {
+                return RedirectToAction("Login", "Account");
+            }
             User user = service.GetById(id);
             if (user != null)
             {
@@ -87,6 +122,10 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Delete(User user)
         {
+            if (IsAuthorized())
+            {
+                return RedirectToAction("Login", "Account");
+            }
             service.Delete(user);
             return RedirectToAction("Index");
         }
