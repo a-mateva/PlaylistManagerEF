@@ -156,7 +156,7 @@ namespace PlaylistManager.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Playlist playlistToEdit, string[] selectedSongs)
+        public ActionResult Edit(Playlist model, string[] selectedSongs)
         {
             if (!IsAuthenticated())
             {
@@ -164,13 +164,16 @@ namespace PlaylistManager.Web.Controllers
             }
             else
             {
-                PlaylistViewModel model = new PlaylistViewModel();
-                Playlist playlist = pService.GetById(playlistToEdit.Id);
+                Playlist playlist = pService.GetById(model.Id);
+                playlist.Name = model.Name;
+                playlist.UserId = UsersService.LoggedUser.Id;
+                playlist.Description = model.Description;
                 playlist.Songs.Clear();
 
                 try
                 {
                     playlist.Songs = GetSelectedSongs(selectedSongs);
+                    pService.Update(playlist);
                 }
 
                 catch (Exception)
@@ -178,7 +181,6 @@ namespace PlaylistManager.Web.Controllers
                     return RedirectToAction("Edit");
                 }
 
-                pService.Update(playlist);
                 return RedirectToAction("Index");
             }
         }

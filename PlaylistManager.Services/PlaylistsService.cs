@@ -36,7 +36,7 @@ namespace PlaylistManager.Services
         {
             try
             {
-                unitOfWork.PlaylistsRepository.Add(playlist);
+                unitOfWork.PlaylistsRepository.Update(playlist);
                 unitOfWork.Save();
             }
             catch (Exception)
