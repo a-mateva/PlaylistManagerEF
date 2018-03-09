@@ -29,10 +29,22 @@ namespace PlaylistManager.Web.Controllers
                 return true;
             }
         }
+       
+        private bool IsAdmin()
+        {
+            if (UsersService.LoggedUser.IsAdmin)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public ActionResult Index()
         {
-            if (!IsAuthorized())
+            if (!IsAuthorized() || !IsAdmin())
             {
                 RedirectToAction("Login", "Account");
             }
@@ -42,7 +54,7 @@ namespace PlaylistManager.Web.Controllers
 
         public ActionResult Create()
         {
-            if (!IsAuthorized())
+            if (!IsAuthorized() || !IsAdmin())
             {
                 RedirectToAction("Login", "Account");
             }
@@ -52,7 +64,7 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Create(Song item)
         {
-            if (!IsAuthorized())
+            if (!IsAuthorized() || !IsAdmin())
             {
                 RedirectToAction("Login", "Account");
             }
@@ -69,7 +81,7 @@ namespace PlaylistManager.Web.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            if (!IsAuthorized())
+            if (!IsAuthorized() || !IsAdmin())
             {
                 RedirectToAction("Login", "Account");
             }
@@ -87,7 +99,7 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Delete(Song item)
         {
-            if (!IsAuthorized())
+            if (!IsAuthorized() || !IsAdmin())
             {
                 RedirectToAction("Login", "Account");
             }
@@ -98,7 +110,7 @@ namespace PlaylistManager.Web.Controllers
         [HttpGet]
         public ActionResult Update(int id)
         {
-            if (!IsAuthorized())
+            if (!IsAuthorized() || !IsAdmin())
             {
                 RedirectToAction("Login", "Account");
             }
@@ -116,7 +128,7 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Update(Song item)
         {
-            if (!IsAuthorized())
+            if (!IsAuthorized() || !IsAdmin())
             {
                 RedirectToAction("Login", "Account");
             }

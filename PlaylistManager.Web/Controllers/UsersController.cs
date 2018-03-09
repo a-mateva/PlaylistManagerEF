@@ -32,7 +32,7 @@ namespace PlaylistManager.Web.Controllers
 
         public ActionResult Index()
         {
-            if (IsAuthorized())
+            if (!IsAuthorized() || IsAdmin())
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -42,7 +42,7 @@ namespace PlaylistManager.Web.Controllers
 
         public ActionResult Create()
         {
-            if (IsAuthorized())
+            if (!IsAuthorized() || !IsAdmin())
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -52,7 +52,7 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Create(User user)
         {
-            if (IsAuthorized())
+            if (!IsAuthorized())
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -69,7 +69,7 @@ namespace PlaylistManager.Web.Controllers
 
         public ActionResult Update(int id)
         {
-            if (IsAuthorized())
+            if (!IsAuthorized())
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -87,7 +87,7 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Update(User user)
         {
-            if (IsAuthorized())
+            if (!IsAuthorized())
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -104,7 +104,7 @@ namespace PlaylistManager.Web.Controllers
 
         public ActionResult Delete(int id)
         {
-            if (IsAuthorized())
+            if (!IsAuthorized())
             {
                 return RedirectToAction("Login", "Account");
             }
@@ -122,12 +122,24 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Delete(User user)
         {
-            if (IsAuthorized())
+            if (!IsAuthorized() || !IsAdmin())
             {
                 return RedirectToAction("Login", "Account");
             }
             service.Delete(user);
             return RedirectToAction("Index");
+        }
+
+        private bool IsAdmin()
+        {
+            if (UsersService.LoggedUser.IsAdmin)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         protected override void Dispose(bool disposing)
