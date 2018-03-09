@@ -48,6 +48,7 @@ namespace PlaylistManager.Web.Controllers
             {
                 RedirectToAction("Login", "Account");
             }
+
             List<Song> songs = service.GetAll();
             return View(songs);
         }
