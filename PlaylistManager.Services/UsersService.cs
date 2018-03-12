@@ -12,19 +12,12 @@ namespace PlaylistManager.Services
     public class UsersService
     {
         private UnitOfWork unitOfWork;
-        public static User LoggedUser { get; set; }
         
         public UsersService(UnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
-
-        public User GetByEmailAndPassword(string username, string password)
-        {
-            LoggedUser = unitOfWork.UserRepository.Get(u => u.Username == username && u.Password == password).FirstOrDefault();
-            return LoggedUser;
-        }
-                
+                       
         public bool Create(User user)
         {            
             try

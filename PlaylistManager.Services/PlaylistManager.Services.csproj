@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationManager.cs" />
+    <Compile Include="AuthenticationService.cs" />
     <Compile Include="PlaylistsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SongsService.cs" />

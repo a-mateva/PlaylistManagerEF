@@ -54,7 +54,7 @@ namespace PlaylistManager.Services
 
         public List<Playlist> GetAll(Expression<Func<Playlist, bool>> filter)
         {
-            return unitOfWork.PlaylistsRepository.Get(filter);
+            return unitOfWork.PlaylistsRepository.GetAll(filter);
         }
         
         public Playlist GetById(int id)

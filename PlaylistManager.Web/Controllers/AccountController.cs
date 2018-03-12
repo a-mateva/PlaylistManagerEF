@@ -29,6 +29,12 @@ namespace PlaylistManager.Web.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            AuthenticationManager.Logout();
+            return RedirectToAction("Login");
+        }
+
         [HttpPost]
         public ActionResult Register(User user)
         {
@@ -52,20 +58,12 @@ namespace PlaylistManager.Web.Controllers
         {
             try
             {
-                UsersService.LoggedUser = service.GetByEmailAndPassword(user.Username, user.Password);
-                if (UsersService.LoggedUser != null)
+                AuthenticationManager.Authenticate(user.Username, user.Password);
+                if (AuthenticationManager.LoggedUser == null)
                 {
-                    Session["LoggedUser"] = UsersService.LoggedUser;
-                    return RedirectToAction("Index", "Playlists");
+                    return RedirectToAction("Login");
                 }
-                if (UsersService.LoggedUser.IsAdmin)
-                {
-                    return RedirectToAction("Index", "Users");
-                }
-                if (!UsersService.LoggedUser.IsAdmin)
-                {
-                    return RedirectToAction("Index", "Songs");
-                }
+                return RedirectToAction("Index", "Playlists");
             }
             catch (Exception)
             {

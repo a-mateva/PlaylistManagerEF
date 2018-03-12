@@ -1,6 +1,7 @@
 ﻿using PlaylistManager.DataAccess;
 using PlaylistManager.Models;
 using PlaylistManager.Services;
+using PlaylistManager.Web.ActionFilters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ using System.Web.Mvc;
 
 namespace PlaylistManager.Web.Controllers
 {
+    [AdminFilter]
+    [LoginFilter]
     public class SongsController : Controller
     {
         private SongsService service;
@@ -17,58 +20,21 @@ namespace PlaylistManager.Web.Controllers
         {
             service = new SongsService(new UnitOfWork());
         }
-
-        private bool IsAuthorized()
-        {
-            if (Session["LoggedUser"] == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-       
-        private bool IsAdmin()
-        {
-            if (UsersService.LoggedUser.IsAdmin)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+                
         public ActionResult Index()
         {
-            if (!IsAuthorized() || !IsAdmin())
-            {
-                RedirectToAction("Login", "Account");
-            }
-
             List<Song> songs = service.GetAll();
             return View(songs);
         }
 
         public ActionResult Create()
         {
-            if (!IsAuthorized() || !IsAdmin())
-            {
-                RedirectToAction("Login", "Account");
-            }
             return View();
         }
 
         [HttpPost]
         public ActionResult Create(Song item)
         {
-            if (!IsAuthorized() || !IsAdmin())
-            {
-                RedirectToAction("Login", "Account");
-            }
             if (service.Create(item))
             {
                 return RedirectToAction("Index");
@@ -82,10 +48,6 @@ namespace PlaylistManager.Web.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            if (!IsAuthorized() || !IsAdmin())
-            {
-                RedirectToAction("Login", "Account");
-            }
             Song item = service.GetById(id);
             if (item != null)
             {
@@ -100,10 +62,6 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Delete(Song item)
         {
-            if (!IsAuthorized() || !IsAdmin())
-            {
-                RedirectToAction("Login", "Account");
-            }
             service.Delete(item);
             return RedirectToAction("Index");
         }
@@ -111,10 +69,6 @@ namespace PlaylistManager.Web.Controllers
         [HttpGet]
         public ActionResult Update(int id)
         {
-            if (!IsAuthorized() || !IsAdmin())
-            {
-                RedirectToAction("Login", "Account");
-            }
             Song item = service.GetById(id);
             if (item != null)
             {
@@ -129,10 +83,6 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Update(Song item)
         {
-            if (!IsAuthorized() || !IsAdmin())
-            {
-                RedirectToAction("Login", "Account");
-            }
             if (ModelState.IsValid)
             {
                 service.Update(item);

@@ -25,7 +25,12 @@ namespace PlaylistManager.DataAccess
             return dbSet.ToList();
         }
 
-        public List<T> Get(Expression<Func<T, bool>> filter)
+        public T Get(Expression<Func<T, bool>> filter)
+        {
+            return dbSet.Where(filter).FirstOrDefault();
+        }
+
+        public List<T> GetAll(Expression<Func<T, bool>> filter)
         {
             return dbSet.Where(filter).ToList();
         }
