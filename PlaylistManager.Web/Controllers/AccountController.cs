@@ -38,19 +38,19 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public ActionResult Register(User user)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 if (service.GetAll().Count == 0)
                 {
                     user.IsAdmin = true;
                 }
                 service.Create(user);
                 return RedirectToAction("Login");
-            }
-            else
-            {
-                return RedirectToAction("Register");
-            }
+            //}
+            //else
+            //{
+                //return RedirectToAction("Register");
+            //}
         }
 
         [HttpPost]

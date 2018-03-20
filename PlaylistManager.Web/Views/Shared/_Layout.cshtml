@@ -9,35 +9,22 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Playlist Manager", "Login", "Account", new { area = "" }, new { @class = "navbar-brand" })
-
-                @Html.ActionLink("Users", "Index", "Users", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Playlists", "Index", "Playlists", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Songs", "Index", "Songs", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
-            </div>
-        </div>
-    </div>
+    @if (HttpContext.Current.Session["LoggedUser"] != null)
+    {
+        @Html.Partial("_NavBarUserLoggedIn")
+    }
+    else
+    {
+        @Html.Partial("_NavBar")
+    }
 
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - PlaylistManager</p>
+            <p>&copy; @DateTime.Now.Year - Playlist Manager</p>
         </footer>
     </div>
-
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </body>
