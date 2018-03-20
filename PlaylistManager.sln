@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaylistManager.DataAccess"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaylistManager.Services", "PlaylistManager.Services\PlaylistManager.Services.csproj", "{D1C528D1-E62E-4FED-908B-14D5B50E1887}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaylistManager.Logger", "PlaylistManager.Logger\PlaylistManager.Logger.csproj", "{1F61F7F7-B7AA-48CC-9C45-2E218282209C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D1C528D1-E62E-4FED-908B-14D5B50E1887}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1C528D1-E62E-4FED-908B-14D5B50E1887}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1C528D1-E62E-4FED-908B-14D5B50E1887}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F61F7F7-B7AA-48CC-9C45-2E218282209C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F61F7F7-B7AA-48CC-9C45-2E218282209C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F61F7F7-B7AA-48CC-9C45-2E218282209C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F61F7F7-B7AA-48CC-9C45-2E218282209C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

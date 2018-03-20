@@ -141,10 +141,6 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Songs\Update.cshtml" />
     <Content Include="Views\Songs\Delete.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Update.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Playlists\Edit.cshtml" />
@@ -154,6 +150,10 @@
     <Content Include="Views\Shared\_NavBarUserLoggedIn.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Update.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -168,6 +168,10 @@
     <ProjectReference Include="..\PlaylistManager.DataAccess\PlaylistManager.DataAccess.csproj">
       <Project>{698d73fe-dd1b-4d89-bd3d-c7e4f1a6a47d}</Project>
       <Name>PlaylistManager.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlaylistManager.Logger\PlaylistManager.Logger.csproj">
+      <Project>{1F61F7F7-B7AA-48CC-9C45-2E218282209C}</Project>
+      <Name>PlaylistManager.Logger</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlaylistManager.Models\PlaylistManager.Models.csproj">
       <Project>{121a8e74-05b3-453d-b287-ee792a863bda}</Project>

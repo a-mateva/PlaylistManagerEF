@@ -13,6 +13,7 @@ namespace PlaylistManager.DataAccess
         private BaseRepository<User> usersRepo;
         private BaseRepository<Playlist> playlistsRepo;
         private BaseRepository<Song> songsRepo;
+        private BaseRepository<CustomException> exceptionsRepo;
 
         private bool disposed;
 
@@ -51,12 +52,25 @@ namespace PlaylistManager.DataAccess
                 return playlistsRepo;
             }
         }
-        
+
+
+        public BaseRepository<CustomException> CustomExceptionsRepository
+        {
+            get
+            {
+                if (exceptionsRepo == null)
+                {
+                    exceptionsRepo = new BaseRepository<CustomException>(context);
+                }
+                return exceptionsRepo;
+            }
+        }
+
         public void Save()
         {
             context.SaveChanges();
         }
-
+        
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)

@@ -11,7 +11,7 @@ namespace PlaylistManager.DataAccess
     public class PlaylistManagerDbContext : DbContext
     {
         public PlaylistManagerDbContext()
-            :base("PlaylistManagerDb")
+            : base("PlaylistManagerDb")
         {
 
         }
@@ -19,5 +19,6 @@ namespace PlaylistManager.DataAccess
         DbSet<User> Users { get; set; }
         DbSet<Playlist> Playlists { get; set; }
         DbSet<Song> Songs { get; set; }
+        DbSet<CustomException> CustomExceptions { get; set; }
     }
 }

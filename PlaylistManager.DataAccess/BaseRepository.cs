@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PlaylistManager.DataAccess
 {
-    public class BaseRepository<T> where T : BaseModel, new()
+    public class BaseRepository<T> where T : class, new()
     {
         private DbContext context;
         private DbSet<T> dbSet;

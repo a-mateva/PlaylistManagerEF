@@ -11,6 +11,9 @@ namespace PlaylistManager.Models
     {
         [Required]
         public string Username { get; set; }
+        public bool IsEmailConfirmed { get; set; }
+        [Required]
+        public string Email { get; set; }
         [StringLength(20, MinimumLength = 7, ErrorMessage = "Password is too short.")]
         public string Password { get; set; }
         [Required]
