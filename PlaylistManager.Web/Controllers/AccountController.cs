@@ -63,7 +63,7 @@ namespace PlaylistManager.Web.Controllers
                 {
                     return RedirectToAction("Login");
                 }
-                return RedirectToAction("Index", "Playlists");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception)
             {
