@@ -42,11 +42,11 @@ namespace PlaylistManager.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Register(User user)
         {
-            if (user.Email.Contains("@gmail.com"))
-            {
-                ViewData["RegisterUnsuccessful"] = "Only gmail accounts are accepted.";
-                return View(user);
-            }
+            //if (!user.Email.Contains("@gmail.com"))
+            //{
+            //    ViewData["RegisterUnsuccessful"] = "Only gmail accounts are accepted.";
+            //    return View(user);
+            //}
             try
             {                
                 if (service.GetById(user.Id) != null)
@@ -71,13 +71,8 @@ namespace PlaylistManager.Web.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public ActionResult ValidateEmail(int id)
         {
-            if (service.GetById(id) == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
             try
             {
                 User user = service.GetById(id);

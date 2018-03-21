@@ -13,29 +13,30 @@ namespace PlaylistManager.Services
     public class EmailSendingService
     {
         private ILog logger = Logger.Logger.GetInstance;
-        private string confirmationEmailUrl = "http://localhost:55766/Account/ValidateEmail";
+        private string confirmationEmailUrl = "http://localhost:61609/Account/ValidateEmail";
        
         public async Task SendConfirmationEmailAsync(User user)
         {
             string callbackUrl = $"{confirmationEmailUrl}?userId={user.Id}";
             string link = $"<a href='{ callbackUrl}'>here</a>!";
-            await SendEmailAsync(user.Email, "PaylistManager sign up", $"To confirm your account click  -> {link}");
+            await SendEmailAsync(user.Email, "PaylistManager sign up", $"To confirm your account click -> {link}");
         }
 
         private async Task SendEmailAsync(string email, string subject, string message)
         {
             try
             {
-                SmtpClient client = new SmtpClient("smtp.mailtrap.io", 2525)
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587)
                 {
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("24c543802de67b", "48ae66afff551a")
+                    Credentials = new NetworkCredential("angelina.mateva@gmail.com", "victorianwerewolfcornea")
                 };
 
                 MailMessage mailMessage = new MailMessage
                 {
                     From = new MailAddress("whoever@me.com")
                 };
+
                 mailMessage.To.Add(email);
                 mailMessage.Body = message;
                 mailMessage.IsBodyHtml = true;
