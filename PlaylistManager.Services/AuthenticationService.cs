@@ -13,7 +13,7 @@ namespace PlaylistManager.Services
         private UnitOfWork unitOfWork;
         public User LoggedUser { get; set; }
         
-        public void AuthenticateUser(string username, string password)
+        public User GetByUsernameAndPassword(string username, string password)
         {
             unitOfWork = new UnitOfWork();
             User user = unitOfWork.UserRepository.Get(u => u.Username == username && u.Password == password);
@@ -21,6 +21,7 @@ namespace PlaylistManager.Services
             {
                 LoggedUser = user;
             }
+            return LoggedUser;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace PlaylistManager.Services
                 HttpContext.Current.Session["LoggedUser"] = new AuthenticationService();
             }
             authService = (AuthenticationService)HttpContext.Current.Session["LoggedUser"];
-            authService.AuthenticateUser(username, password);
+            authService.GetByUsernameAndPassword(username, password); 
         }
 
         public static void Logout()

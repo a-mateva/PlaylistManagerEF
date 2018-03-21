@@ -154,7 +154,8 @@
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Update.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Account\ValidateEmail.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

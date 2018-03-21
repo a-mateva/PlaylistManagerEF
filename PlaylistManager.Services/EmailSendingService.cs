@@ -18,8 +18,8 @@ namespace PlaylistManager.Services
         public async Task SendConfirmationEmailAsync(User user)
         {
             string callbackUrl = $"{confirmationEmailUrl}?userId={user.Id}";
-            string link = $"<a href='{ callbackUrl}'>here</a>!";
-            await SendEmailAsync(user.Email, "PaylistManager sign up", $"To confirm your account click -> {link}");
+            string link = $"<a href='{ callbackUrl}'>link</a>!";
+            await SendEmailAsync(user.Email, "PlaylistManager sign up", $"To confirm your account click this {link}");
         }
 
         private async Task SendEmailAsync(string email, string subject, string message)

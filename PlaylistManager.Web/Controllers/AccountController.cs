@@ -11,7 +11,6 @@ using System.Web.Mvc;
 
 namespace PlaylistManager.Web.Controllers
 {
-    [AllowAnonymous]
     public class AccountController : Controller
     {
         private ILog logger = Logger.Logger.GetInstance;
@@ -39,19 +38,19 @@ namespace PlaylistManager.Web.Controllers
             return RedirectToAction("Login");
         }
 
+        public ActionResult Error()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<ActionResult> Register(User user)
         {
-            //if (!user.Email.Contains("@gmail.com"))
-            //{
-            //    ViewData["RegisterUnsuccessful"] = "Only gmail accounts are accepted.";
-            //    return View(user);
-            //}
             try
             {                
                 if (service.GetById(user.Id) != null)
                 {
-                    ViewData["RegisterUnsuccessful"] = "This email is already taken.";
+                    ModelState.AddModelError("email", "Email address is already taken.");
                     return View(user);
                 }
                 if (service.GetAll().Count == 0)
@@ -71,45 +70,48 @@ namespace PlaylistManager.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult ValidateEmail(int id)
+        [AllowAnonymous]
+        public ActionResult ValidateEmail(int userId)
         {
             try
             {
-                User user = service.GetById(id);
+                User user = service.GetById(userId);
                 if (user == null)
                 {
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    user.IsEmailConfirmed = true;
+                }
+
                 service.Update(user);
             }
             catch (Exception ex)
             {
                 logger.LogCustomException(ex, null);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Error", "Home");
             }
-            return View("ConfirmEmail"); //TODO
+            return View();
         }
 
         [HttpPost]
         public ActionResult Login(User user)
-        {
+        {            
             try
             {
                 AuthenticationManager.Authenticate(user.Username, user.Password);
-                if (!user.IsEmailConfirmed)
+                if (AuthenticationManager.LoggedUser != null)
                 {
-                    ViewData["LoginUnsuccessful"] = "Email is not confirmed!";
-                    return View();
-                }
-                if (AuthenticationManager.LoggedUser == null)
-                {
-                    return RedirectToAction("Login");
+                    if (!AuthenticationManager.LoggedUser.IsEmailConfirmed)
+                    {
+                        return View(user);
+                    }
                 }
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
-                //ModelState.AddModelError("", "Invalid email or password.");
                 logger.LogCustomException(ex, null);
                 return RedirectToAction("Error", "Home");
             }

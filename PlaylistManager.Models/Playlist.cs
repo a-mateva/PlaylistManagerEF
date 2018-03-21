@@ -9,6 +9,11 @@ namespace PlaylistManager.Models
 {
     public class Playlist : BaseModel
     {
+        public Playlist()
+        {
+
+        }
+
         public int UserId { get; set; }
         [Required]
         public string Name { get; set; }
