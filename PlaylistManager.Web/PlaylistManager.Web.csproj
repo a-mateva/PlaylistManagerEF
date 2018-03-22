@@ -122,6 +122,7 @@
     <Compile Include="ActionFilters\LoginFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomErrorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlaylistsController.cs" />
     <Compile Include="Controllers\SongsController.cs" />
@@ -157,6 +158,8 @@
     <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Account\ValidateEmail.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\CustomErrors\Index.cshtml" />
+    <Content Include="Views\CustomErrors\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

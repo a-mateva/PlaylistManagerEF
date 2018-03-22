@@ -1,0 +1,90 @@
+﻿@model PlaylistManager.Models.CustomException
+
+<div>
+    <hr />
+    <dl class="dl-horizontal text-center">
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StackTrace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StackTrace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HelpLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HelpLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Source)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Source)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HResult)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HResult)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomMessage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomMessage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomStackTrace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomStackTrace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomInnerMessage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomInnerMessage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomInnerStackTrace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomInnerStackTrace)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+    </dl>
+</div>
+<h4>
+    @Html.ActionLink("Back to List", "Index")
+</h4>

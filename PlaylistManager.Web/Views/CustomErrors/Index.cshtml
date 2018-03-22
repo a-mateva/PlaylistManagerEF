@@ -1,0 +1,77 @@
+﻿@model IEnumerable<PlaylistManager.Models.CustomException>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Message)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StackTrace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HelpLink)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Source)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HResult)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomMessage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomStackTrace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomInnerMessage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomInnerStackTrace)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StackTrace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HelpLink)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Source)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HResult)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomMessage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomStackTrace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomInnerMessage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomInnerStackTrace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

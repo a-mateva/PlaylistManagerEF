@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AuthenticationManager.cs" />
     <Compile Include="AuthenticationService.cs" />
+    <Compile Include="CustomExceptionsService.cs" />
     <Compile Include="EmailSendingService.cs" />
     <Compile Include="PlaylistsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,7 +11,7 @@ namespace PlaylistManager.DataAccess
     public class PlaylistManagerDbContext : DbContext
     {
         public PlaylistManagerDbContext()
-            : base("PlaylistManagerRemoteDatabase")
+            : base("PlaylistManagerDb")
         {
 
         }
