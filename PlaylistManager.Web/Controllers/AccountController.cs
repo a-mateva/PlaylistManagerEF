@@ -38,7 +38,7 @@ namespace PlaylistManager.Web.Controllers
             AuthenticationManager.Logout();
             return RedirectToAction("Login");
         }
-        
+
         [HttpPost]
         public async Task<ActionResult> Register(User user)
         {
@@ -100,11 +100,6 @@ namespace PlaylistManager.Web.Controllers
                 if (currentUser != null)
                 {
                     AuthenticationManager.Authenticate(currentUser.Username, currentUser.Password);
-                    //Session["Username"] = currentUser.Username;
-                    if (!currentUser.IsEmailConfirmed)
-                    {
-                        return RedirectToAction("Error", "Home");
-                    }
                 }
                 return RedirectToAction("Index", "Home");
             }
