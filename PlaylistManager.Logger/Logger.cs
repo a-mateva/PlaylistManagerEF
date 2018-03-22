@@ -16,7 +16,10 @@ namespace PlaylistManager.Logger
 
         public static Logger GetInstance
         {
-            get { return instance.Value; }
+            get
+            {
+                return instance.Value;
+            }
         }
 
         public void LogCustomException(Exception ex, int? id = null)

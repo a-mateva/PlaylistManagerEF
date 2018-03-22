@@ -9,6 +9,11 @@ namespace PlaylistManager.Web.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
+        public ActionResult Error()
+        {
+            return View();
+        }
+
         public ActionResult Index()
         {
             return View();

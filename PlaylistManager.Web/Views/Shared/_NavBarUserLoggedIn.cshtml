@@ -11,16 +11,24 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 @{
-                    if (PlaylistManager.Services.AuthenticationManager.LoggedUser.IsAdmin)
+                    if (PlaylistManager.Services.AuthenticationManager.LoggedUser.IsEmailConfirmed)
                     {
-                        <li>@Html.ActionLink("Users", "Index", "Users")</li>
-                        <li>@Html.ActionLink("Songs", "Index", "Songs")</li>
+                        if (PlaylistManager.Services.AuthenticationManager.LoggedUser.IsAdmin)
+                        {
+                            <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                            <li>@Html.ActionLink("Songs", "Index", "Songs")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("My playlists", "Index", "Playlists")</li>
+                        }
+                        <li>@Html.ActionLink("Log out", "Logout", "Account")</li>
                     }
                     else
                     {
-                        <li>@Html.ActionLink("My playlists", "Index", "Playlists")</li>
+                        <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                        <li>@Html.ActionLink("Register", "Register", "Account")</li>
                     }
-                    <li>@Html.ActionLink("Log out", "Logout", "Account")</li>
                 }
             </ul>
         </div>

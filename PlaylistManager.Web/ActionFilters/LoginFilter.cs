@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace PlaylistManager.Web.ActionFilters
 {
@@ -12,10 +13,17 @@ namespace PlaylistManager.Web.ActionFilters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-            if (AuthenticationManager.LoggedUser == null)
+            if (HttpContext.Current.Session["LoggedUser"] == null)
             {
                 filterContext.Result = new RedirectToRouteResult(
-                    new System.Web.Routing.RouteValueDictionary { { "controller", "Account" }, { "action", "Login" } });
+                    new RouteValueDictionary { { "controller", "Account" }, { "action", "Login" } });
+            }
+
+            if (AuthenticationManager.LoggedUser == null)
+            {
+                HttpContext.Current.Session["LoggedUser"] = null;
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(
+                    new { controller = "Account", action = "Login" }));
             }
         }
     }

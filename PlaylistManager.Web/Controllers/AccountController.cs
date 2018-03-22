@@ -2,6 +2,7 @@
 using PlaylistManager.Logger;
 using PlaylistManager.Models;
 using PlaylistManager.Services;
+using PlaylistManager.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,17 +38,12 @@ namespace PlaylistManager.Web.Controllers
             AuthenticationManager.Logout();
             return RedirectToAction("Login");
         }
-
-        public ActionResult Error()
-        {
-            return View();
-        }
-
+        
         [HttpPost]
         public async Task<ActionResult> Register(User user)
         {
             try
-            {                
+            {
                 if (service.GetById(user.Id) != null)
                 {
                     ModelState.AddModelError("email", "Email address is already taken.");
@@ -66,7 +62,7 @@ namespace PlaylistManager.Web.Controllers
             {
                 logger.LogCustomException(ex, null);
                 return RedirectToAction("Error", "Home");
-            }            
+            }
         }
 
         [HttpGet]
@@ -96,16 +92,18 @@ namespace PlaylistManager.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(User user)
-        {            
+        public ActionResult Login(LoginViewModel model)
+        {
             try
             {
-                AuthenticationManager.Authenticate(user.Username, user.Password);
-                if (AuthenticationManager.LoggedUser != null)
+                User currentUser = service.Get(u => u.Username == model.Username && u.Password == model.Password);
+                if (currentUser != null)
                 {
-                    if (!AuthenticationManager.LoggedUser.IsEmailConfirmed)
+                    AuthenticationManager.Authenticate(currentUser.Username, currentUser.Password);
+                    //Session["Username"] = currentUser.Username;
+                    if (!currentUser.IsEmailConfirmed)
                     {
-                        return View(user);
+                        return RedirectToAction("Error", "Home");
                     }
                 }
                 return RedirectToAction("Index", "Home");

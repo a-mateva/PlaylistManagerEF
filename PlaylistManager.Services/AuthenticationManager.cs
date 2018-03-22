@@ -8,7 +8,7 @@ using System.Web;
 
 namespace PlaylistManager.Services
 {
-    public class AuthenticationManager
+    public static class AuthenticationManager
     {
         public static User LoggedUser
         {
@@ -32,7 +32,7 @@ namespace PlaylistManager.Services
                 HttpContext.Current.Session["LoggedUser"] = new AuthenticationService();
             }
             authService = (AuthenticationService)HttpContext.Current.Session["LoggedUser"];
-            authService.GetByUsernameAndPassword(username, password); 
+            authService.GetByUsernameAndPassword(username, password);
         }
 
         public static void Logout()
