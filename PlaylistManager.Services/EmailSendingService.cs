@@ -13,7 +13,7 @@ namespace PlaylistManager.Services
     public class EmailSendingService
     {
         private ILog logger = Logger.Logger.GetInstance;
-        private string confirmationEmailUrl = "http://localhost:61609/Account/ValidateEmail";
+        private string confirmationEmailUrl = "http://playlistmanager.apphb.com/Account/ValidateEmail";
        
         public async Task SendConfirmationEmailAsync(User user)
         {
