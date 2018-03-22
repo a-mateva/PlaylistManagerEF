@@ -44,10 +44,10 @@ namespace PlaylistManager.Web.Controllers
         {
             try
             {
-                if (service.GetById(user.Id) != null)
+                User getUser = service.Get(u => user.Email == u.Email);
+                if (getUser.Email != null)
                 {
-                    ModelState.AddModelError("email", "Email address is already taken.");
-                    return View(user);
+                    return RedirectToAction("Error", "Home");
                 }
                 if (service.GetAll().Count == 0)
                 {
