@@ -49,14 +49,18 @@ namespace PlaylistManager.Web.Controllers
                 {
                     return RedirectToAction("Error", "Home");
                 }
-                if (service.GetAll().Count == 0)
+                else
                 {
-                    user.IsAdmin = true;
+                    if (service.GetAll().Count == 0)
+                    {
+                        user.IsAdmin = true;
+                    }
+                    service.Create(user);
+                    emailService = new EmailSendingService();
+                    await emailService.SendConfirmationEmailAsync(user);
+                    return RedirectToAction("Login");
+
                 }
-                service.Create(user);
-                emailService = new EmailSendingService();
-                await emailService.SendConfirmationEmailAsync(user);
-                return RedirectToAction("Login");
             }
             catch (Exception ex)
             {
